@@ -20,10 +20,13 @@
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <QListView>
+#include <QMessageBox>
+#include <QDialog>
 #include <QDirModel>
 #include <QTreeView>
 #include "tag.hpp"
 #include <QStringListModel>
+#include <QFileSystemModel>
 
 class TabAssociate : public QWidget
 {
@@ -50,6 +53,7 @@ class TabAssociate : public QWidget
         // Elements de l'onglet
         QPushButton* buttonValidate;
         QListView* listTag;
+        QStringListModel* listModel;
         QDirModel* directoryModel;
         QTreeView* directoryView;
 
@@ -65,6 +69,7 @@ class TabAssociate : public QWidget
     public slots:
         void hideCreer();
         void createTag();
+        void associateTag();
 };
 
 #endif // TABASSOCIATE_H

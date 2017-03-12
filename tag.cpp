@@ -80,6 +80,12 @@ bool Tag::removeElement(QString tagName, QString element) {
     }
 }
 
-QJsonArray Tag::getResultsResearch(QString tagName) {
-    return objJson[tagName].toArray();
+QStringList Tag::getResultsResearch(QString tagName) {
+    QStringList list;
+    for (QJsonValue o : objJson[tagName].toArray()) {
+        list.append(o.toString());
+        qDebug() << o;
+    }
+    return list;
+    // return QStringList(.toVariantList().toStdList());
 }

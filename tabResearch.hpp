@@ -9,6 +9,8 @@
 #include <QListView>
 #include <QVBoxLayout>
 #include <QHBoxLayout>
+#include <QStringListModel>
+#include "tag.hpp"
 
 class TabResearch : public QWidget
 {
@@ -17,7 +19,12 @@ class TabResearch : public QWidget
         TabResearch(QWidget *parent = 0);
 
     private:
+        Tag* tag;
+
         QListView* viewConsult;
+        QStringListModel* listModel;
+        QVBoxLayout* consultLayout;
+        QWidget* consultWidget;
 
         QLineEdit* saisieRecherche;
         QPushButton* buttonRechercher;
@@ -43,6 +50,7 @@ class TabResearch : public QWidget
     public slots:
         void affichageResearch();
         void resetTab();
+        void hideConsult();
 };
 
 #endif // TABRESEARCH_HPP

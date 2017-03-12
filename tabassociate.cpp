@@ -32,13 +32,16 @@ TabAssociate::TabAssociate(QWidget *parent) : QWidget(parent)
 
     //QTableView -- ajouter la liste des tags.
     listTag = new QListView();
-    QStringListModel* listModel = new QStringListModel();
+    listTag->setFixedWidth(200);
+    listModel = new QStringListModel();
     listModel->setStringList(tag->getListTags());
     listTag->setModel(listModel);
 
     //DirectoryView
     directoryModel = new QDirModel;
-    directoryView = new QTreeView;
+ //   directoryModel->setRootPath(QDir::homePath());
+    directoryView = new QTreeView();
+    directoryView->setSelectionMode(QAbstractItemView::MultiSelection);
     directoryView->setModel(directoryModel);
 
     // Button valider
@@ -60,6 +63,7 @@ TabAssociate::TabAssociate(QWidget *parent) : QWidget(parent)
 
     connect(hideButton, SIGNAL(clicked()), this, SLOT(hideCreer()));
     connect(buttonCreate, SIGNAL(clicked()), this, SLOT(createTag()));
+    connect(buttonValidate, SIGNAL(clicked()), this, SLOT(associateTag()));
 }
 
 // SLOTS
@@ -75,4 +79,21 @@ void TabAssociate::hideCreer(){
 
 void TabAssociate::createTag() {
     tag->addTag(nameTag->text());
+    listModel->setStringList(tag->getListTags());
+}
+
+void TabAssociate::associateTag() {
+    int row = -1;
+    QStringList list;
+    for (QModelIndex mi : directoryView->selectionModel()->selectedIndexes()) {
+        if (mi.row() != row) {
+            list.append(directoryModel->filePath(mi));
+            row = mi.row();
+        }
+    }
+    tag->addElements(list, listTag->currentIndex().data(Qt::DisplayRole).toString());
+    QMessageBox::about(
+        this,
+        tr("Qtag"),
+        tr("Vos dossiers/fichiers on bien été associé") );
 }

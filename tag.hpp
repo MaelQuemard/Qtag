@@ -18,7 +18,7 @@ class Tag
         void addTag(QString tagName);
         bool addElements(QStringList list, QString tagName);
         bool removeElement(QString tagName, QString element);
-        QJsonArray getResultsResearch(QString tagName);
+        QStringList getResultsResearch(QString tagName);
 
     private:
         QFile* tags;
