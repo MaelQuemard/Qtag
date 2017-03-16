@@ -19,7 +19,6 @@ void Tag::addTag(QString tagName) {
     objJson.insert(tagName, QJsonValue());
     jsonDoc.setObject(objJson);
     QString strJson(jsonDoc.toJson(QJsonDocument::Compact));
-    qDebug() << jsonDoc;
     if (tags->isOpen()) {
         tags->resize(0);
         QTextStream stream(tags);
@@ -47,6 +46,7 @@ bool Tag::addElements(QStringList list, QString tagName) {
     }
 
     QJsonArray arraypath = QJsonArray::fromStringList(list);
+    objJson.remove(tagName);
     objJson.insert(tagName, arraypath);
     jsonDoc.setObject(objJson);
     QString strJson(jsonDoc.toJson(QJsonDocument::Compact));
@@ -55,6 +55,9 @@ bool Tag::addElements(QStringList list, QString tagName) {
         tags->resize(0);
         QTextStream stream(tags);
         stream << strJson << endl;
+        return true;
+    } else {
+        return false;
     }
 }
 
@@ -69,13 +72,18 @@ bool Tag::removeElement(QString tagName, QString element) {
                 array.removeAt(i);
             }
         }
+        objJson.remove(tagName);
         objJson.insert(tagName, array);
+        jsonDoc.setObject(objJson);
         QString strJson(jsonDoc.toJson(QJsonDocument::Compact));
 
         if (tags->isOpen()) {
             tags->resize(0);
             QTextStream stream(tags);
             stream << strJson << endl;
+            return true;
+        } else {
+            return false;
         }
     }
 }
@@ -84,8 +92,17 @@ QStringList Tag::getResultsResearch(QString tagName) {
     QStringList list;
     for (QJsonValue o : objJson[tagName].toArray()) {
         list.append(o.toString());
-        qDebug() << o;
+    }
+    qDebug() << "Mon object : " << objJson;
+    return list;
+}
+
+QStringList Tag::getResultsResearchUnion(QStringList tagsName) {
+    QStringList list;
+    for (QString tag : tagsName) {
+        for (QJsonValue o : objJson[tag].toArray()) {
+            list.append(o.toString());
+        }
     }
     return list;
-    // return QStringList(.toVariantList().toStdList());
 }

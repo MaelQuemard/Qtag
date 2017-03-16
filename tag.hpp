@@ -19,6 +19,7 @@ class Tag
         bool addElements(QStringList list, QString tagName);
         bool removeElement(QString tagName, QString element);
         QStringList getResultsResearch(QString tagName);
+        QStringList getResultsResearchUnion(QStringList tagsName);
 
     private:
         QFile* tags;

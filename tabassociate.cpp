@@ -1,9 +1,9 @@
 #include "tabAssociate.hpp"
 
-TabAssociate::TabAssociate(QWidget *parent) : QWidget(parent)
+TabAssociate::TabAssociate(Tag* tag, QWidget *parent) : QWidget(parent)
 {
     /* ----- Instance tag pour la persistence ----- */
-    tag = new Tag();
+    this->tag = tag;
 
     /* -------- onglet associer -------- */
     //Formulaire de création de nouveau tag
@@ -32,6 +32,8 @@ TabAssociate::TabAssociate(QWidget *parent) : QWidget(parent)
 
     //QTableView -- ajouter la liste des tags.
     listTag = new QListView();
+    listTag->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    listTag->setSelectionMode(QAbstractItemView::ExtendedSelection);
     listTag->setFixedWidth(200);
     listModel = new QStringListModel();
     listModel->setStringList(tag->getListTags());
@@ -41,7 +43,7 @@ TabAssociate::TabAssociate(QWidget *parent) : QWidget(parent)
     directoryModel = new QDirModel;
  //   directoryModel->setRootPath(QDir::homePath());
     directoryView = new QTreeView();
-    directoryView->setSelectionMode(QAbstractItemView::MultiSelection);
+    directoryView->setSelectionMode(QAbstractItemView::ExtendedSelection);
     directoryView->setModel(directoryModel);
 
     // Button valider
@@ -91,9 +93,7 @@ void TabAssociate::associateTag() {
             row = mi.row();
         }
     }
-    tag->addElements(list, listTag->currentIndex().data(Qt::DisplayRole).toString());
-    QMessageBox::about(
-        this,
-        tr("Qtag"),
-        tr("Vos dossiers/fichiers on bien été associé") );
+    if(tag->addElements(list, listTag->currentIndex().data(Qt::DisplayRole).toString())) {
+        QMessageBox::about(this, tr("Qtag"), tr("Vos dossiers/fichiers ont été associés avec succès") );
+    }
 }

@@ -10,19 +10,22 @@
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <QStringListModel>
+#include <QDesktopServices>
+#include <QMessageBox>
 #include "tag.hpp"
 
 class TabResearch : public QWidget
 {
     Q_OBJECT
     public:
-        TabResearch(QWidget *parent = 0);
+        TabResearch(Tag* tag, QWidget *parent = 0);
 
     private:
         Tag* tag;
 
         QListView* viewConsult;
         QStringListModel* listModel;
+        QPushButton* rechercheRapide;
         QVBoxLayout* consultLayout;
         QWidget* consultWidget;
 
@@ -42,6 +45,7 @@ class TabResearch : public QWidget
         QTableView* view;
         QWidget* widgetReponse;
         QVBoxLayout* layoutReponse;
+        QPushButton* dislinkButton;
         QPushButton* buttonHide;
         QHBoxLayout* layoutOnglet;
 
@@ -49,8 +53,14 @@ class TabResearch : public QWidget
 
     public slots:
         void affichageResearch();
+        void affichageResponse();
         void resetTab();
         void hideConsult();
+        void rechercheDirect();
+        void refreshListView();
+        void openFile(QModelIndex index);
+        void removeElement();
+        void dislink();
 };
 
 #endif // TABRESEARCH_HPP

@@ -27,12 +27,13 @@
 #include "tag.hpp"
 #include <QStringListModel>
 #include <QFileSystemModel>
+#include "tabResearch.hpp"
 
 class TabAssociate : public QWidget
 {
     Q_OBJECT
     public:
-        TabAssociate(QWidget *parent = 0);
+        TabAssociate(Tag* tag, QWidget *parent = 0);
 
     private:
         /* ----- Variables pour le formulaire de création de tag -----*/

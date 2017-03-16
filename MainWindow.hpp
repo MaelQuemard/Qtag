@@ -26,6 +26,7 @@
 #include <QTreeView>
 #include "tabAssociate.hpp"
 #include "tabResearch.hpp"
+#include "tag.hpp"
 
 class MainWindow : public QMainWindow {
 
@@ -37,6 +38,7 @@ class MainWindow : public QMainWindow {
         MainWindow();
 
     private:
+        Tag* tag;
         /* ----- Variables de la fenetre ----- */
         QWidget* centralArea;
         QScreen *screen;

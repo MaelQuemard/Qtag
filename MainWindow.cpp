@@ -3,6 +3,7 @@
 
 MainWindow::MainWindow()
 {
+    tag = new Tag();
     // zone centrale
     centralArea = new QWidget();
 
@@ -19,8 +20,8 @@ MainWindow::MainWindow()
     tab->setMinimumSize(screenGeometry.width(), screenGeometry.height()-50);
 
     // différents onglets
-    researchTab = new TabResearch();
-    associateTab = new TabAssociate();
+    researchTab = new TabResearch(tag);
+    associateTab = new TabAssociate(tag);
 
     /* -------- tab rechercher -------- */
     tab->addTab(associateTab,"Associer/Créer");
@@ -29,12 +30,6 @@ MainWindow::MainWindow()
     /* ----- Barre de menu ----- */
     fileMenu = menuBar()->addMenu("&Fichier");
 
-    addAction = new QAction("&Ajouter un joueur",this);
-    fileMenu->addAction(addAction);
-    saveAction = new QAction("&Enregistrer les joueurs ",this);
-    fileMenu->addAction(saveAction);
-    importAction = new QAction("&Importer des joueurs",this);
-    fileMenu->addAction(importAction);
     exitAction = new QAction("&Quitter",this);
     fileMenu->addAction(exitAction);
 
@@ -51,17 +46,5 @@ MainWindow::MainWindow()
 
     /* ----- Connect changement d'onglet ----- */
     connect(tab, SIGNAL(currentChanged(int)), researchTab, SLOT(resetTab()));
-
-    /*QToolBar* toolBar = addToolBar("Tool");
-    toolBar->addAction(addAction);
-    toolBar->addAction(saveAction);
-    toolBar->addAction(importAction);
-    //toolBar*/
+    connect(tab, SIGNAL(currentChanged(int)), researchTab, SLOT(refreshListView()));
 }
-
-/*
-MainWindow::~MainWindow()
-{
-    delete ui;
-}
-*/
