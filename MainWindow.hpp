@@ -28,6 +28,11 @@
 #include "tabResearch.hpp"
 #include "tag.hpp"
 
+/**
+ * @brief Classe MainWindow
+ * @authors M. Quémard - S. Vuylsteke
+ * Cette classe regroupe tous les elements pour l'application
+ */
 class MainWindow : public QMainWindow {
 
     Q_OBJECT

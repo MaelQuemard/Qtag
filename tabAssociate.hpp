@@ -29,10 +29,21 @@
 #include <QFileSystemModel>
 #include "tabResearch.hpp"
 
+/**
+ * @brief Classe TabAssociate
+ * @authors M. Quémard - S. Vuylsteke
+ * Cette classe représente l'onglet "créer/associer"
+ */
 class TabAssociate : public QWidget
 {
     Q_OBJECT
     public:
+
+        /**
+         * @brief Constructeur de la classe TabAssociate
+         * @param tag, paramètre qui permet de recupérer les données
+         * @param parent
+         */
         TabAssociate(Tag* tag, QWidget *parent = 0);
 
     private:
@@ -68,8 +79,19 @@ class TabAssociate : public QWidget
     signals:
 
     public slots:
+        /**
+         * @brief Slot hideCreer, permet de cacher le menu déroulant de gauche
+         */
         void hideCreer();
+
+        /**
+         * @brief Slot createTag, permet de connecter le bouton de création de tag pour mettre à jour les données
+         */
         void createTag();
+
+        /**
+         * @brief Slot associateTag, permet d'associer les élements selectionnés au tag choisi
+         */
         void associateTag();
 };
 

@@ -93,7 +93,6 @@ QStringList Tag::getResultsResearch(QString tagName) {
     for (QJsonValue o : objJson[tagName].toArray()) {
         list.append(o.toString());
     }
-    qDebug() << "Mon object : " << objJson;
     return list;
 }
 

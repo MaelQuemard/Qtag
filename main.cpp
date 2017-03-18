@@ -14,13 +14,5 @@ int main(int argc, char *argv[])
     MainWindow fenetre;
     fenetre.show();
 
-    Tag* t = new Tag();
-
-    qDebug() << t->getListTags();
-    QStringList* list = new QStringList("monPath");
-    //t->addElements(*list, "machin");
-    t->removeElement("machin", "monPath");
-    qDebug() << t->getResultsResearch("machin");
-
     return app.exec();
 }

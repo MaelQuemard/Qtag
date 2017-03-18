@@ -101,7 +101,6 @@ void TabResearch::affichageResearch() {
 
     int nb_way=1;
     for (QString r : result) {
-       // this->modele->appendRow(new QStandardItem(r));
         this->modele->setData(this->modele->index(nb_way-1, 0), r);
         nb_way++;
     }
@@ -116,7 +115,7 @@ void TabResearch::affichageResponse() {
     widgetReponse->setVisible(true);
     saisieReponse->setText(saisieReponse->text());
 
-    //TODO: Lancer la recherche
+    //Lance la recherche
 
     QStringList result = this->tag->getResultsResearch(saisieReponse->text());
     this->modele->setColumnCount(1);
@@ -190,25 +189,17 @@ void TabResearch::rechercheDirect() {
 }
 
 void TabResearch::refreshListView() {
-    //qDebug() << tag->getListTags();
     this->listModel->setStringList(this->tag->getListTags());
     this->viewConsult->setModel(this->listModel);
-    //this->viewConsult->show();
 }
 
 void TabResearch::openFile(QModelIndex index) {
-    //this->menuWay->setVisible(false);
-    //QModelIndex index = this->view->currentIndex();
     QString path = index.data().toString();
 
     if(!QDesktopServices::openUrl(QUrl::fromLocalFile(path)))
     {
         QMessageBox::critical(this,"Erreur d'ouverture", "Il est impossible d'ouvrir le fichier/dossier : "+path+".");
     }
-}
-
-void TabResearch::removeElement() {
-    qDebug() << "Here";
 }
 
 void TabResearch::dislink() {
